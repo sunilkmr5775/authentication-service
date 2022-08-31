@@ -4,6 +4,7 @@ public interface StatusConstant {
 	public static final String STATUS_SUCCESS = "SUCCESS";
 	public static final String STATUS_FAILURE = "FAILURE";
 	public static final String STATUS_ACTIVE = "ACTIVE";
+	public static final String STATUS_INACTIVE = "INACTIVE";
 	public static final String STATUS_SUBMITTED = "SUBMITTED";
 	public static final String STATUS_INPROGRESS = "INPROGRESS";
 	public static final String STATUS_COMPLETED = "COMPLETED";
@@ -22,7 +23,7 @@ public interface StatusConstant {
 	public static final String SIZE = "SIZE";
 	public static final String HEADER = "HEADER";
 	public static final String EXTENSION = "EXTENSION";
-	public static final boolean STATUS_ACTIVE1 = true;
+	public static final boolean STATUS_TRUE = true;
 	
 	
 	

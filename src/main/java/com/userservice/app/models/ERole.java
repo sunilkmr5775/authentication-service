@@ -1,7 +1,7 @@
 package com.userservice.app.models;
 
 public enum ERole {
-  NORMAL,
-  MODERATOR,
-  ADMIN
+  ROLE_NORMAL,
+  ROLE_MODERATOR,
+  ROLE_ADMIN
 }

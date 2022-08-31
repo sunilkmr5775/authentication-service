@@ -1,39 +1,63 @@
 package com.userservice.app.models;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+//@Data
 @Entity
-@Table(name = "roles")
+@Table(name = "AUTH_ROLES")
+//@AllArgsConstructor
+//@NoArgsConstructor
 public class Role {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "AUTH_ROLE_ID")
+	private Integer id;
 
-  @Enumerated(EnumType.STRING)
-  @Column(length = 20)
-  private ERole name;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "ROLE_NAME", length = 20)
+	private ERole roleName;
 
-  public Role() {
+	@Column(name = "ROLE_DESCRIPTION")
+	private ERole roleDesc;
 
-  }
+	public Role() {
 
-  public Role(ERole name) {
-    this.name = name;
-  }
+	}
 
-  public Integer getId() {
-    return id;
-  }
+	public Role(ERole roleName) {
+		this.roleName = roleName;
+	}
 
-  public void setId(Integer id) {
-    this.id = id;
-  }
+	public Integer getId() {
+		return id;
+	}
 
-  public ERole getName() {
-    return name;
-  }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-  public void setName(ERole name) {
-    this.name = name;
-  }
+	public ERole getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(ERole roleName) {
+		this.roleName = roleName;
+	}
+
+	public ERole getRoleDesc() {
+		return roleDesc;
+	}
+
+	public void setRoleDesc(ERole roleDesc) {
+		this.roleDesc = roleDesc;
+	}
+
+	
 }

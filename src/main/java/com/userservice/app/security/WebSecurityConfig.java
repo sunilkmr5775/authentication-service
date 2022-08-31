@@ -18,7 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.userservice.app.jwt.AuthEntryPointJwt;
 import com.userservice.app.jwt.AuthTokenFilter;
-import com.userservice.app.services.UserDetailsServiceImpl;
+import com.userservice.app.services.impl.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -54,15 +54,37 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 
+	/*
+	 * @Override protected void configure(HttpSecurity http) throws Exception {
+	 * http.cors().and().csrf().disable().exceptionHandling().
+	 * authenticationEntryPoint(unauthorizedHandler).and()
+	 * .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
+	 * and().authorizeRequests()
+	 * .antMatchers("/api/auth/**").permitAll().antMatchers("/api/test/**").
+	 * permitAll().anyRequest() .authenticated();
+	 * 
+	 * http.addFilterBefore(authenticationJwtTokenFilter(),
+	 * UsernamePasswordAuthenticationFilter.class); }
+	 */
+	
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-				.antMatchers("/api/auth/**").permitAll().antMatchers("/api/test/**").permitAll().anyRequest()
+	protected void configure(HttpSecurity httpSecurity) throws Exception {
+		httpSecurity.csrf().disable().exceptionHandling()
+				.authenticationEntryPoint(unauthorizedHandler).and().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests().
+				antMatchers(HTTP_SEC_AUTH_WHITELIST)
+				.permitAll().anyRequest()
 				.authenticated();
-
-		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+	
+		httpSecurity.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+	
+		httpSecurity.headers().frameOptions().sameOrigin() // H2 Console Needs this setting
+				.cacheControl(); // disable caching
 	}
+
+	private String[] HTTP_SEC_AUTH_WHITELIST = {
+			"/api/auth/**","/api/test/**"
+	};
 	
 	@Override
 	public void configure(WebSecurity webSecurity) throws Exception {
